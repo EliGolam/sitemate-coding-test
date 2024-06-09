@@ -3,6 +3,9 @@ Hi Team of Sitemate!
 
 I am excited to present my solution for the challenge you requested. I have combined both the API and the client into a single repository as per the requirements. However, I typically prefer to manage the UI and API/backend as separate programs for better modularity and scalability. For the API, I implemented a simple Node.js solution, and for the UI, I chose to use Vue.js.
 
+Thank you for considering my solution. Please let me know if you have any questions or need further assistance.
+Elias Mahfuzul
+
 ## How to launch the solution
 ### API
 #### 1. Install NPM packages 
@@ -24,6 +27,4 @@ I have included a test-client.js for testing purposes. Run `node test-client.js`
 #### 2. Launch UI
 Start the Vue UI by running `npm run dev` in the Terminal. This will launch the front-end UI in your default web browser.
 
-Thank you for considering my solution. Please let me know if you have any questions or need further assistance.
 
-Elias Mahfuzul
