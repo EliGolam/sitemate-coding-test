@@ -13,6 +13,7 @@ import HelloWorld from './components/HelloWorld.vue'
     </ul>
 
     <h2>CRUD for issues</h2>
+    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
     <div>
       <h3>Create Issue</h3>
       <input v-model="newIssue.id" placeholder="ID" />
@@ -20,7 +21,6 @@ import HelloWorld from './components/HelloWorld.vue'
       <input v-model="newIssue.description" placeholder="Description" />
       <button @click="createIssue">Create</button>
     </div>
-    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
     <div>
       <h3>Update Issue</h3>
       <input v-model="updateIssue.id" placeholder="ID" />
@@ -79,40 +79,54 @@ export default {
         });
     },
     createIssue() {
+      this.errorMessage = '';
       axios.post(`http://localhost:${PORT}/issues`, this.newIssue)
         .then(response => {
           this.issues.push(response.data);
           this.newIssue = { id: '', title: '', description: '' };
-          this.errorMessage = '';
         })
         .catch(error => {
+          this.errorMessage = 'Create Error: '
           if (error.response && error.response.status === 406) {
-            this.errorMessage = error.response.data.error;
+            this.errorMessage += error.response.data.error;
           } else {
-            this.errorMessage = 'An unexpected error occurred';
+            this.errorMessage += 'An unexpected error occurred';
           }
           console.error('Create Error:', error); // Fallback error catching
         });
     },
     updateIssueMethod() {
+      this.errorMessage = '';
       axios.put(`http://localhost:${PORT}/issues/${this.updateIssue.id}`, this.updateIssue)
         .then(response => {
-          const index = this.issues.findIndex(issue => issue.id === this.updateIssue.id);
-          this.issues.splice(index, 1, response.data);
+          this.issues = response.data;
           this.updateIssue = { id: '', title: '', description: '' };
         })
         .catch(error => {
-          console.error('Update Error:', error);
+          this.errorMessage = 'Update Error: '
+          if (error.response && error.response.status === 406) {
+            this.errorMessage += error.response.data.error;
+          } else {
+            this.errorMessage += 'An unexpected error occurred';
+          }
+          console.error('Create Error:', error); // Fallback error catching
         });
     },
     deleteIssue() {
+      this.errorMessage = '';
       axios.delete(`http://localhost:${PORT}/issues/${this.deleteId}`)
         .then(() => {
           this.issues = this.issues.filter(issue => issue.id != this.deleteId);
           this.deleteId = '';
         })
         .catch(error => {
-          console.error('Delete Error:', error);
+          this.errorMessage = 'Delete Error: '
+          if (error.response && error.response.status === 406) {
+            this.errorMessage += error.response.data.error;
+          } else {
+            this.errorMessage += 'An unexpected error occurred';
+          }
+          console.error('Create Error:', error); // Fallback error catching
         });
     }
   }
