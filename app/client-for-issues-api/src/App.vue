@@ -14,7 +14,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <h2>CRUD for issues</h2>
     <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-    <div>
+    <div class="crud-section">
       <h3>Create Issue</h3>
       <input v-model="newIssue.id" placeholder="ID" />
       <input v-model="newIssue.title" placeholder="Title" />
@@ -37,18 +37,7 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+
 </style>
 
 <script>
