@@ -20,6 +20,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <input v-model="newIssue.description" placeholder="Description" />
       <button @click="createIssue">Create</button>
     </div>
+    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
     <div>
       <h3>Update Issue</h3>
       <input v-model="updateIssue.id" placeholder="ID" />
@@ -60,7 +61,8 @@ export default {
       issues: [],
       newIssue: { id: '', title: '', description: '' },
       updateIssue: { id: '', title: '', description: '' },
-      deleteId: ''
+      deleteId: '',
+      errorMessage: '',
     };
   },
   created() {
@@ -81,9 +83,15 @@ export default {
         .then(response => {
           this.issues.push(response.data);
           this.newIssue = { id: '', title: '', description: '' };
+          this.errorMessage = '';
         })
         .catch(error => {
-          console.error('Create Error:', error);
+          if (error.response && error.response.status === 406) {
+            this.errorMessage = error.response.data.error;
+          } else {
+            this.errorMessage = 'An unexpected error occurred';
+          }
+          console.error('Create Error:', error); // Fallback error catching
         });
     },
     updateIssueMethod() {
