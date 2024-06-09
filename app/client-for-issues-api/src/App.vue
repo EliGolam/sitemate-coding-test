@@ -14,30 +14,41 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <h2>CRUD for issues</h2>
     <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-    <div class="crud-section">
-      <h3>Create Issue</h3>
-      <input v-model="newIssue.id" placeholder="ID" />
-      <input v-model="newIssue.title" placeholder="Title" />
-      <input v-model="newIssue.description" placeholder="Description" />
-      <button @click="createIssue">Create</button>
-    </div>
-    <div>
-      <h3>Update Issue</h3>
-      <input v-model="updateIssue.id" placeholder="ID" />
-      <input v-model="updateIssue.title" placeholder="Title" />
-      <input v-model="updateIssue.description" placeholder="Description" />
-      <button @click="updateIssueMethod">Update</button>
-    </div>
-    <div>
-      <h3>Delete Issue</h3>
-      <input v-model="deleteId" placeholder="ID" />
-      <button @click="deleteIssue">Delete</button>
+    <div class="flex">
+      <div class="crud-section">
+        <h3>Create Issue</h3>
+        <input v-model="newIssue.id" placeholder="ID" />
+        <input v-model="newIssue.title" placeholder="Title" />
+        <input v-model="newIssue.description" placeholder="Description" />
+        <button @click="createIssue">Create</button>
+      </div>
+      <div class="crud-section">
+        <h3>Update Issue</h3>
+        <input v-model="updateIssue.id" placeholder="ID" />
+        <input v-model="updateIssue.title" placeholder="Title" />
+        <input v-model="updateIssue.description" placeholder="Description" />
+        <button @click="updateIssueMethod">Update</button>
+      </div>
+      <div class="crud-section">
+        <h3>Delete Issue</h3>
+        <input v-model="deleteId" placeholder="ID" />
+        <button @click="deleteIssue">Delete</button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.flex {
+  display: flex;
+  gap: 6rem;
+}
 
+.crud-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 </style>
 
 <script>
